@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -24,13 +25,36 @@ public class EjerciciosServiceImpl implements EjerciciosService {
         listaNombres.add("Octavio");
         listaNombres.add("Silvia");
 
-        for (String nombre: listaNombres){
-            if (nombre.contains("o") || nombre.contains("O")){
+        /*for (String nombre : listaNombres) {
+            if (nombre.toLowerCase().contains("o")) {
                 log.info("Entro al if de la lista nombres");
                 response.add(nombre);
             }
-        }
+        }*/
 
+        /*int index = 0;
+        while (index < listaNombres.size){
+            String nombre = listaNombres.get(index);
+                if (nombre.toLowerCase().contains("o")){
+                    log.info("Entro al if de la lista nombres");
+                    response.add(nombre);
+                }
+                index++;
+        }*/
+
+        /*int index =0;
+        do{
+            String nombre = listaNombres.get(index);
+            if (nombre.toLowerCase().contains("o")){
+                log.info("Entro al if de la lista nombres");
+                response.add(nombre);
+            }
+            index++;
+        }while (index < listaNombres.size);*/
+
+        response = listaNombres.stream()
+                .filter(nombre -> nombre.toLowerCase().contains("i"))
+                .collect(Collectors.toList());
         return response;
     }
 }
