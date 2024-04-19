@@ -5,16 +5,14 @@ import com.curso.spring.dto.response.DatosPersonaResponse;
 import com.curso.spring.model.Personas;
 import com.curso.spring.repository.PersonasRepository;
 import com.curso.spring.service.PersonaService;
-import com.fasterxml.jackson.databind.ObjectReader;
-import io.swagger.v3.oas.annotations.Operation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 
@@ -108,6 +106,28 @@ public class PersonaServiceImpl implements PersonaService {
             log.error("Error el metodo getInfoPersona " +e.getMessage());
         }
 
+        return response;
+    }
+
+    @Transactional
+    @Override
+    public ResponseEntity<?> savePersonasNative(PersonaRequest request){
+
+        ResponseEntity<?> response = null;
+
+        try{
+            log.info("Request guardar" + request);
+            Integer result = personasRepository.saveNativePerson(request);
+
+            if (result>0){
+                response = ResponseEntity.ok().body("Guardado exitodso");
+            }else{
+                response = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ocurrio un error al intentar insertar");
+            }
+
+        }catch (Exception e){
+            log.error("Error en motodo savePersonaNative"+ e.getMessage());
+        }
         return response;
     }
 }

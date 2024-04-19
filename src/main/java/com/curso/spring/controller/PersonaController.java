@@ -71,4 +71,11 @@ public class PersonaController {
     public ResponseEntity<Object> getInfoPersonas(@PathVariable Integer id){
         return personaService.getInfoPersonas(id);
     }
+
+    @PostMapping("/Person/save/native")
+    @Operation(summary = "Operacion para guardar la informacion de personas de forma nativa")
+    public ResponseEntity<?> savePersonaNative(@RequestBody PersonaRequest request){
+        return personaService.savePersonasNative(request);
+    }
+
 }
