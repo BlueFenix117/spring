@@ -27,4 +27,14 @@ public interface PersonasRepository extends JpaRepository<Personas, Long> {
             "(:#{#request.nombre}, :#{#request.edad}, :#{#request.genero}, :#{#request.direccionId}, :#{#request.empleoId})", nativeQuery =true)
     Integer saveNativePerson(@Param("request")PersonaRequest request);
 
+    @Modifying(clearAutomatically = true)
+    @Query(value = "UPDATE personas SET nombre= :#{#request.nombre} WHERE persona_id = :#{#request.personaId}", nativeQuery = true)
+    //@Query(value = "UPDATE Persona p SET nombre= 'p.nombre' WHERE persona_id = p.personaId")
+    Integer updateNativePerson(@Param("request")PersonaRequest request);
+
+    @Modifying(clearAutomatically = true)
+    @Query(value = "DELETE FROM personas WHERE persona_id = :id", nativeQuery = true)
+    void deleteNativePerson(@Param("id")int id);
+
+
 }

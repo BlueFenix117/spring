@@ -4,6 +4,7 @@ import com.curso.spring.dto.request.PersonaRequest;
 import com.curso.spring.dto.response.DatosPersonaResponse;
 import com.curso.spring.model.Personas;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 import java.util.Objects;
@@ -26,4 +27,8 @@ public interface PersonaService {
     ResponseEntity<Object> getInfoPersonas(Integer id);
 
     ResponseEntity<?> savePersonasNative(PersonaRequest request);
+
+    ResponseEntity<?> updatePersonasNative(PersonaRequest request) throws Exception;
+
+    boolean deletePersonNative(int id)throws Exception;
 }

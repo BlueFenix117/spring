@@ -1,5 +1,6 @@
 package com.curso.spring.controller;
 
+import com.curso.spring.dto.response.Posts;
 import com.curso.spring.service.EjerciciosService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -45,5 +46,13 @@ public class HelloWorldController {
     @GetMapping("/nombres")
     public List<String> getNombres(){
         return ejerciciosService.getNombres();
+    }
+
+    @GetMapping("/posts/{id}")
+    @Operation(summary = "Operacion para consumir un servicio rest")
+    public Posts getPost(@PathVariable int id){
+
+        return ejerciciosService.getPost(id);
+
     }
 }

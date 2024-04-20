@@ -24,6 +24,7 @@ public class PersonaServiceImpl implements PersonaService {
     private PersonaService personaService;
     @Autowired
     private PersonasRepository personasRepository;
+
     @Override
     public List<Personas> findAllPersons() {
         return personasRepository.findAll();
@@ -47,8 +48,9 @@ public class PersonaServiceImpl implements PersonaService {
 
         return ResponseEntity.ok(personasRepository.save(personas));
     }
+
     @Override
-    public Personas buscarPersonaId(Long id){
+    public Personas buscarPersonaId(Long id) {
 
         Optional<Personas> datosPersona = personasRepository.findById(id);
 
@@ -73,7 +75,7 @@ public class PersonaServiceImpl implements PersonaService {
             //personas.setEmpleoId(request.getEmpleoId());
 
             response = ResponseEntity.ok(personasRepository.save(personas));
-        }else {
+        } else {
             response = ResponseEntity.status(HttpStatus.NOT_FOUND).body("No se encontro la Persona para actualizar");
         }
         return response;
@@ -85,25 +87,25 @@ public class PersonaServiceImpl implements PersonaService {
     }
 
     @Override
-    public List<String> personasByGenero(String genero){
+    public List<String> personasByGenero(String genero) {
         return personasRepository.personasByGenero(genero);
     }
 
     @Override
-    public ResponseEntity<Object> getInfoPersonas(@PathVariable Integer id){
+    public ResponseEntity<Object> getInfoPersonas(@PathVariable Integer id) {
 
         ResponseEntity<Object> response = null;
-        try{
+        try {
 
             Optional<DatosPersonaResponse> infoPersona = Optional.ofNullable(personasRepository.getInfoPersona(id));
-            if(infoPersona.isPresent()){
+            if (infoPersona.isPresent()) {
                 response = ResponseEntity.ok(infoPersona.get());
-            }else{
+            } else {
                 response = ResponseEntity.status(HttpStatus.NOT_FOUND)
-                        .body("No se encontraron los datos de la persona con id: " +id);
+                        .body("No se encontraron los datos de la persona con id: " + id);
             }
-        } catch(Exception e){
-            log.error("Error el metodo getInfoPersona " +e.getMessage());
+        } catch (Exception e) {
+            log.error("Error el metodo getInfoPersona " + e.getMessage());
         }
 
         return response;
@@ -111,23 +113,74 @@ public class PersonaServiceImpl implements PersonaService {
 
     @Transactional
     @Override
-    public ResponseEntity<?> savePersonasNative(PersonaRequest request){
+    public ResponseEntity<?> savePersonasNative(PersonaRequest request) {
 
         ResponseEntity<?> response = null;
 
-        try{
+        try {
             log.info("Request guardar" + request);
             Integer result = personasRepository.saveNativePerson(request);
 
-            if (result>0){
+            if (result > 0) {
                 response = ResponseEntity.ok().body("Guardado exitodso");
-            }else{
+            } else {
                 response = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ocurrio un error al intentar insertar");
             }
 
-        }catch (Exception e){
-            log.error("Error en motodo savePersonaNative"+ e.getMessage());
+        } catch (Exception e) {
+            log.error("Error en motodo savePersonaNative" + e.getMessage());
         }
         return response;
     }
+
+    @Transactional
+    @Override
+    public ResponseEntity<?> updatePersonasNative(PersonaRequest request) throws Exception {
+
+        ResponseEntity<?> response = null;
+        try {
+            Integer result = personasRepository.updateNativePerson(request);
+            if (result > 0) {
+                response = ResponseEntity.ok().body("Actualizacion exitosa");
+            } else {
+                response = ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Ocurrio un error al intentar actualizar");
+            }
+
+        } catch (Exception e) {
+            throw new Exception("Error en meotdo updatePersonNative" + e.getMessage());
+        }
+        return response;
+    }
+
+    //Metodo para borrar persona
+    @Override
+    @Transactional
+    public boolean deletePersonNative(int id) throws Exception {
+
+        boolean response = false;
+
+        try {
+            personasRepository.deleteNativePerson(id);
+            response = true;
+
+        } catch (Exception e) {
+            throw new Exception("Error al eliminar" + e.getMessage());
+        }
+
+        return response;
+    }
+
+    //public void guardarDatos(PersonaRequest personas){
+    /*Personas personas = new Personas();
+            personas.setPersonaId(request.getPersonaId());
+            personas.setNombre(request.getNombre());
+            personas.setEdad(request.getEdad());
+            personas.setGenero(request.getGenero());*/
+    //personas.setDireccionId(request.getDireccionId());
+    //personas.setEmpleoId(request.getEmpleoId());
+
+    //personasRepository.save(personas)
+
+    //Empleos empleos = new Empleos();
+    //}
 }
