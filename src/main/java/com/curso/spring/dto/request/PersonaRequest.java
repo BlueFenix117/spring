@@ -12,19 +12,9 @@ import javax.persistence.Id;
 public class PersonaRequest {
 
     private Long personaId;
-
-
     private String nombre;
-
-
     private Integer edad;
-
-
     private String genero;
-
-
     private Integer direccionId;
-
-
     private Integer empleoId;
 }

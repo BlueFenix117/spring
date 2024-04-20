@@ -49,7 +49,6 @@ public class PersonaController {
     @PutMapping("/putPersonas")
     @Operation(summary = "Operacion para actualizar los datos de personas")
     public ResponseEntity<Object> updatePersona(@RequestBody PersonaRequest request){
-
         return personaService.updatePersona(request);
     }
 
