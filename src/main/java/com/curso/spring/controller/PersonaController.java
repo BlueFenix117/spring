@@ -1,9 +1,7 @@
 package com.curso.spring.controller;
 
 import com.curso.spring.dto.request.PersonaRequest;
-import com.curso.spring.dto.response.DatosPersonaResponse;
 import com.curso.spring.model.Personas;
-import com.curso.spring.repository.PersonasRepository;
 import com.curso.spring.service.PersonaService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -12,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/personas")

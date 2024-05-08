@@ -1,9 +1,7 @@
 package com.curso.spring.controller;
 
 import com.curso.spring.dto.request.EmpleoRequest;
-import com.curso.spring.dto.request.PersonaRequest;
 import com.curso.spring.model.Empleos;
-import com.curso.spring.model.Personas;
 import com.curso.spring.service.EmpleoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

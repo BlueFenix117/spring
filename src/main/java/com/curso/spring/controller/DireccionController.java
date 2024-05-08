@@ -1,11 +1,8 @@
 package com.curso.spring.controller;
 
 import com.curso.spring.dto.request.DireccionRequest;
-import com.curso.spring.dto.request.EmpleoRequest;
 import com.curso.spring.model.Direcciones;
-import com.curso.spring.model.Empleos;
 import com.curso.spring.service.DireccionService;
-import com.curso.spring.service.EmpleoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
